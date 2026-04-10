@@ -29,6 +29,13 @@ unica/patches/product_feature/resolution/system/system/bin/* binary
 # Platform-specific prebuilt blobs
 platform/exynos9820/patches/vendor/vendor/** binary
 platform/exynos990/patches/vendor/vendor/** binary
+# Device-specific prebuilt blobs
+target/a52sxq/patches/wpss/vendor/firmware/** binary
+target/a73xq/patches/wpss/vendor/firmware/** binary
+target/m52xq/patches/wpss/vendor/firmware/** binary
+target/r9s/patches/vendor/vendor/** binary
+target/d2s/patches/trustzone/vendor/** binary
 
 # Device-specific prebuilt blobs
 target/r8s/patches/vendor/vendor/** binary
+platform/exynos9825/patches/vendor/vendor/** binary
