@@ -28,6 +28,10 @@ unica/mods/prophide/system/bin/rezetprop binary
 # Device-specific prebuilt blobs
 target/a52sxq/patches/wpss/vendor/firmware/** binary
 target/a73xq/patches/wpss/vendor/firmware/** binary
+target/d2s/patches/trustzone/vendor/** binary
 target/m52xq/patches/wpss/vendor/firmware/** binary
 target/r9s/patches/vendor/vendor/** binary
 target/r8s/patches/vendor/vendor/bin/hw/wpa_supplicant binary
+
+# Platform-specific prebuilt blobs
+platform/exynos9825/patches/vendor/vendor/** binary
