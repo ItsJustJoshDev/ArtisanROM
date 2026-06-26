@@ -36,9 +36,6 @@ BUILD_IMAGE_MKFS()
     case "$FS_TYPE" in
         "ext4")
             BUILD_CMD+="mkuserimg_mke2fs "
-            if $SPARSE; then
-                BUILD_CMD+="-s "
-            fi
             BUILD_CMD+="\"$INPUT_DIR\" \"$OUTPUT_FILE\" \"ext4\" \"$MOUNT_POINT\" "
             BUILD_CMD+="\"$IMAGE_SIZE\" "
             # https://android.googlesource.com/platform/build/+/refs/tags/android-15.0.0_r1/tools/releasetools/build_image.py#808
@@ -46,9 +43,6 @@ BUILD_IMAGE_MKFS()
             # https://android.googlesource.com/platform/build/+/refs/tags/android-15.0.0_r1/tools/releasetools/build_image.py#49
             BUILD_CMD+="-T \"1230735600\" "
             BUILD_CMD+="-C \"$FS_CONFIG_FILE\" "
-            if $MAP_FILE; then
-                BUILD_CMD+="-B \"${OUTPUT_FILE//.img/.map}\" "
-            fi
             BUILD_CMD+="-L \"$MOUNT_POINT\" "
             if [ "$INODES" ]; then
                 BUILD_CMD+="-i \"$INODES\" "
@@ -86,31 +80,17 @@ BUILD_IMAGE_MKFS()
             BUILD_CMD+="--file-contexts \"$FILE_CONTEXT_FILE\" "
             # Samsung uses a different default fixed timestamp for erofs/f2fs
             BUILD_CMD+="-T \"1640995200\" "
-            if $MAP_FILE; then
-                BUILD_CMD+="--block-list-file \"${OUTPUT_FILE//.img/.map}\" "
-            fi
             BUILD_CMD+="\"$OUTPUT_FILE\" \"$INPUT_DIR\""
-
-            # mkfs.erofs has no built-in sparse support
-            if $SPARSE; then
-                MANUAL_SPARSE=true
-            fi
             ;;
         "f2fs")
             BUILD_CMD+="mkf2fsuserimg "
             BUILD_CMD+="\"$OUTPUT_FILE\" \"$IMAGE_SIZE\" "
-            if $SPARSE; then
-                BUILD_CMD+="-S "
-            fi
             BUILD_CMD+="-C \"$FS_CONFIG_FILE\" "
             BUILD_CMD+="-f \"$INPUT_DIR\" "
             BUILD_CMD+="-s \"$FILE_CONTEXT_FILE\" "
             BUILD_CMD+="-t \"$MOUNT_POINT\" "
             # Samsung uses a different default fixed timestamp for erofs/f2fs
             BUILD_CMD+="-T \"1640995200\" "
-            if $MAP_FILE; then
-                BUILD_CMD+="-B \"${OUTPUT_FILE//.img/.map}\" "
-            fi
             BUILD_CMD+="-L \"$MOUNT_POINT\" "
             # https://android.googlesource.com/platform/build/+/refs/tags/android-15.0.0_r1/tools/releasetools/build_image.py#818
             BUILD_CMD+="--readonly "
@@ -270,6 +250,7 @@ PREPARE_SCRIPT()
             FORCE=true
         elif [[ "$1" == "--generate-map" ]] || [[ "$1" == "-m" ]]; then
             MAP_FILE=true
+            LOG "fuck"
         elif [[ "$1" == "--inodes" ]] || [[ "$1" == "-i" ]]; then
             shift; INODES="$1"
             if ! [[ "$INODES" =~ ^[+-]?[0-9]+$ ]]; then

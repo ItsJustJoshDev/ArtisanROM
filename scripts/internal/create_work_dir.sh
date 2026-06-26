@@ -10,7 +10,7 @@ TARGET_FIRMWARE_PATH="$(cut -d "/" -f 1 -s <<< "$TARGET_FIRMWARE")_$(cut -d "/" 
 
 COPY_SOURCE_FIRMWARE()
 {
-    local SOURCE_FOLDERS="product system"
+    local SOURCE_FOLDERS="odm product system prism optics"
     for f in $SOURCE_FOLDERS; do
         if [ -d "$FW_DIR/$SOURCE_FIRMWARE_PATH/$f" ]; then
             LOG "- Copying /$f from source firmware"
@@ -19,7 +19,7 @@ COPY_SOURCE_FIRMWARE()
             sed "/system_ext/d" "$FW_DIR/$SOURCE_FIRMWARE_PATH/fs_config-$f" > "$WORK_DIR/configs/fs_config-$f"
             if [[ "$f" == "product" ]]; then
                 LOG_STEP_IN
-                SET_PROP "product" "ro.product.product.name" "$(GET_PROP "$FW_DIR/$TARGET_FIRMWARE_PATH/product/etc/build.prop" "ro.product.product.name")"
+                SET_PROP "product" "ro.product.product.name" "d2sxx"
                 LOG_STEP_OUT
             elif [[ "$f" == "system" ]]; then
                 LOG_STEP_IN
@@ -110,7 +110,7 @@ COPY_SOURCE_FIRMWARE()
 
 COPY_TARGET_FIRMWARE()
 {
-    local TARGET_FOLDERS="odm odm_dlkm system_dlkm vendor vendor_dlkm"
+    local TARGET_FOLDERS="odm_dlkm system_dlkm vendor vendor_dlkm"
     for f in $TARGET_FOLDERS; do
         if [ -d "$FW_DIR/$TARGET_FIRMWARE_PATH/$f" ]; then
             LOG "- Copying /$f from target firmware"
