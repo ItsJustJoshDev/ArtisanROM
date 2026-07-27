@@ -19,7 +19,7 @@ TARGET_CODENAME="d2s"
 TARGET_PLATFORM="exynos9825"
 TARGET_FIRMWARE="SM-N975F/TPA/358780109886445" # placeholder IMEI for FUS auth, unrelated to actual firmware version — script should fetch latest TPA build automatically
 TARGET_EXTRA_FIRMWARES=()
-TARGET_ASSERT_MODEL=("SM-N975F/DS")
+TARGET_ASSERT_MODEL=("SM-N975F") # ro.boot.em.model reports base model only, even on DS/dual-SIM hardware — the earlier "/DS" suffix broke the updater-script assert
 TARGET_PRODUCT_SHIPPING_API_LEVEL=28
 
 # --- New schema fields (brought in from the newer d2s config) ---
@@ -117,4 +117,5 @@ TARGET_SUPPORT_HOTSPOT_DUALAP=false
 TARGET_SUPPORT_HOTSPOT_ENHANCED_OPEN=false
 TARGET_SUPPORT_HOTSPOT_WIFI_6=true
 TARGET_SUPPORT_HOTSPOT_WPA3=false
-TARGET_SUPPORT_WIFI_7=false
+TARGET_SUPPORT_WIFI_
+7=false
